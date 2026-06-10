@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Tokens ── */
+:root {
+  --bg:           #070d14;
+  --bg-card:      rgba(255, 255, 255, 0.035);
+  --bg-stat:      rgba(255, 255, 255, 0.025);
+
+  --aqua:         #00c8d2;
+  --aqua-dim:     rgba(0, 200, 210, 0.12);
+  --blue-dim:     rgba(30, 120, 255, 0.09);
+
+  --text-primary:   #e8f4ff;
+  --text-secondary: rgba(255, 255, 255, 0.45);
+  --text-muted:     rgba(255, 255, 255, 0.25);
+  --text-faint:     rgba(255, 255, 255, 0.2);
+
+  --border:         rgba(255, 255, 255, 0.08);
+  --border-hover:   rgba(0, 200, 210, 0.25);
+  --border-stat:    rgba(255, 255, 255, 0.07);
+  --border-dashed:  rgba(255, 255, 255, 0.06);
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  10px;
+
+  --px: 36px;
+}
+
+/* ── Base ── */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Orbs ── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-1 {
+  width: 600px;
+  height: 600px;
+  top: -160px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(0, 200, 210, 0.10) 0%, transparent 65%);
+}
+
+.orb-2 {
+  width: 460px;
+  height: 460px;
+  top: 240px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(30, 120, 255, 0.09) 0%, transparent 65%);
+}
+
+.orb-3 {
+  width: 380px;
+  height: 380px;
+  top: 60%;
+  right: 60px;
+  background: radial-gradient(circle, rgba(0, 200, 210, 0.06) 0%, transparent 65%);
+}
+
+.orb-4 {
+  width: 400px;
+  height: 400px;
+  bottom: 80px;
+  left: 40px;
+  background: radial-gradient(circle, rgba(30, 120, 255, 0.07) 0%, transparent 65%);
+}
+
+/* ── Layout ── */
+.section-label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 var(--px);
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.section-divider {
+  border: none;
+  border-top: 0.5px solid var(--border-dashed);
+  margin: 0 var(--px) 28px;
+}
+
+/* ── Pill / Tag ── */
+.pill {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  border: 0.5px solid var(--border);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.pill-stack {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ── Status dot ── */
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--aqua);
+  margin-right: 6px;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  :root { --px: 20px; }
+}
+
+/* ── Max width container ── */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+footer {
+  max-width: 1100px;
+  margin: 0 auto;
+}
