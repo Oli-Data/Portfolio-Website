@@ -38,7 +38,7 @@ const projects = [
       'Binary crime classification model using PyTorch. 86% accuracy on ~38K test records with a custom 4-layer fully connected network and evaluation pipeline.',
     pills: ['PyTorch', 'Pandas', 'Scikit-learn'],
     accent: 'teal',
-    href: 'https://github.com/Oli-Data',
+    href: 'https://github.com/Oli-Data/Data-Science-Machine-Learning-Projects/tree/main/Chicago%20Crime%20Project',
   },
   {
     id: 'next',
