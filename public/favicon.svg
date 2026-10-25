@@ -1,4 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#070d14"/>
-  <text x="16" y="22" font-family="sans-serif" font-weight="bold" font-size="16" fill="#00c8d2" text-anchor="middle">C</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#d5f4e8"/><stop offset="1" stop-color="#76bdb5"/></linearGradient></defs><rect width="64" height="64" rx="19" fill="url(#g)"/><g fill="none" stroke="#20515a" stroke-width="5" stroke-linecap="round"><path d="M25 25c-14-8-21 19-3 18"/><ellipse cx="40" cy="34" rx="9" ry="11"/></g><path d="M47 12h7v7m-1-6-9 9" stroke="#20515a" stroke-width="2" fill="none"/></svg>

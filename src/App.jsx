@@ -6,21 +6,11 @@ import About from './components/About'
 import Footer from './components/Footer'
 
 export default function App() {
-  return (
-    <>
-      {/* Ambient orbs */}
-      <div className="orb orb-1" aria-hidden="true" />
-      <div className="orb orb-2" aria-hidden="true" />
-      <div className="orb orb-3" aria-hidden="true" />
-      <div className="orb orb-4" aria-hidden="true" />
-
-      <Nav />
-      <main>
-        <Hero />
-        <Projects />
-        <About />
-      </main>
-      <Footer />
-    </>
-  )
+  return <>
+    <div className="aero-background" aria-hidden="true"><div className="aurora aurora-one" /><div className="aurora aurora-two" /><div className="horizon" /><div className="wave" /><span className="bubble bubble-one" /><span className="bubble bubble-two" /><span className="bubble bubble-three" /></div>
+    <a className="skip-link" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main"><Hero /><Projects /><About /></main>
+    <Footer />
+  </>
 }

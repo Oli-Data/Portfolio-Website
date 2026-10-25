@@ -1,50 +1,8 @@
 import './About.css'
 
-const stats = [
-  { label: 'Degree',   value: 'B.S. Data Science' },
-  { label: 'Venture',  value: 'CO³ Labs LLC' },
-  { label: 'Location', value: 'Visalia, CA' },
-  { label: 'Hardware', value: 'RTX 4090 Compute Node' },
-  { label: 'Focus',    value: 'ML · CV · NLP' },
-]
-
 export default function About() {
-  return (
-    <section id="about">
-      <p className="section-label">About</p>
-      <hr className="section-divider" />
-
-      <div className="about-inner">
-        <div className="about-left">
-          <h2 className="about-heading">
-            Built at the edge of<br />
-            what's <span>currently possible</span>
-          </h2>
-          <p className="about-body">
-            I'm Christian Olivares-Rodriguez, a Machine Learning Engineer based
-            in Visalia, CA, with a B.S. in Data Science. I build production AI
-            systems — from full-stack platforms to deep learning classifiers —
-            with a focus on making intelligent tools that are actually useful to
-            people.
-          </p>
-          <p className="about-body">
-            I founded CO³ Labs LLC as a personal research vehicle to go deeper:
-            exploring the architecture of machine intelligence, and what it might
-            mean for systems to model something like understanding or
-            consciousness. I believe the most interesting work happens at the
-            edge of what's currently possible.
-          </p>
-        </div>
-
-        <div className="about-right">
-          {stats.map(s => (
-            <div key={s.label} className="about-stat">
-              <span className="about-stat-label">{s.label}</span>
-              <span className="about-stat-val">{s.value}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
+  return <section id="about" className="about section-width"><div className="section-heading"><div><p className="eyebrow">THE PERSON BEHIND THE PROJECTS</p><h2>I like the question<br />behind the question.</h2></div><p>How does it work? Where does it fail?<br />And what would make it useful?</p></div>
+    <div className="about-grid"><div className="about-story"><p className="lead">I’m Christian, a data science graduate and the founder of CO³ Labs, based in Visalia, California.</p><p>My work moves between analysis and application development: investigating broadband access, building a more interactive way to study, and exploring continuity in personal AI.</p><p>I’m drawn to systems I can understand, test, and improve. That means keeping the source close to the conclusion, measuring what a model actually does, and being clear about what is still an experiment.</p><div className="about-signature">Christian <span>↗</span></div></div><aside className="about-note glass"><span className="note-pin" aria-hidden="true">✦</span><p className="eyebrow">MY WORKING PRINCIPLES</p><ol><li><span>01</span><div><h3>Start with the real question.</h3><p>The model is one part of the system. First, understand the problem.</p></div></li><li><span>02</span><div><h3>Keep the evidence visible.</h3><p>Results are more useful when the assumptions and limitations come with them.</p></div></li><li><span>03</span><div><h3>Make room for curiosity.</h3><p>Build, learn from the rough edges, and improve the next version.</p></div></li></ol></aside></div>
+    <div className="lab-bridge glass"><div className="lab-mark" aria-hidden="true">co³</div><div><p className="eyebrow">THE PRACTICE BEHIND THE WORK</p><h3>CO³ Labs</h3><p>My home for independent research, contract data analysis, and custom software projects.</p></div><a href="https://co3labs.com" className="button button-glass" target="_blank" rel="noopener noreferrer">Visit the lab ↗</a></div>
+  </section>
 }

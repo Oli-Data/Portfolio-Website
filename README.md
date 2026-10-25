@@ -1,99 +1,40 @@
-# christianolivares.us — Personal Portfolio
+# Christian Olivares-Rodriguez · Personal portfolio
 
-Personal portfolio site for Christian Olivares-Rodriguez, Machine Learning Engineer and founder of CO³ Labs LLC.
+React and Vite portfolio for data science, applied machine learning, and software projects. Includes a glass-inspired Frutiger Aero design with ocean blue, aqua, and fresh green accents.
 
-**Live site:** [christianolivares.us](https://christianolivares.us)
+## Run locally
 
----
-
-## Tech Stack
-
-- **Framework:** React 19 + Vite
-- **Styling:** Plain CSS with custom design tokens (no Tailwind)
-- **Fonts:** Syne (headings) + DM Sans (body) via Google Fonts
-- **Deployment:** Vercel
-- **Domain:** Squarespace → Vercel nameservers
-
----
+- `npm ci` installs the locked dependencies.
+- `npm run dev` starts the development server.
+- `npm run build` creates the production build in `dist/`.
+- `npm run preview` serves that build locally.
 
 ## Design
 
-Custom "aqua glass" aesthetic built from scratch:
+The personal identity uses ocean blue, glassy aqua, fresh green, pearl highlights, and a small amber accent. Frutiger Aero materials connect it to CO³ Labs and Lumitudy: reflective glass, a translucent globe, bubbles, curved light, and glossy controls. Night is the default; daylight can be selected in the header. The preference is stored under `portfolio-appearance`.
 
-- Dark navy base (`#070d14`) with ambient radial gradient orbs
-- Aqua/cyan (`#00c8d2`) as the primary accent color
-- Syne 800 for display headings, DM Sans 300/400/500 for body
-- Glass-effect cards with subtle borders and hover states
-- Sticky frosted-glass nav with `backdrop-filter: blur`
-- Fully responsive down to mobile
+Typography uses Syne and DM Sans from Google Fonts, with local fallbacks. Illustration elements are CSS and SVG. Reduced-motion preferences are respected; no continuously animated background is used.
 
----
+## Content and evidence
 
-## Project Structure
+- Lumitudy is a working prototype with an actual local design screenshot. lumitudy.com is future-home text, not a live link. Current limitations are disclosed.
+- California broadband is labeled a research draft. The unsupported geographic-versus-income headline was removed. The public repository remains linked for inspection.
+- Luz is an early prototype with private source code. Implemented application work and development goals are distinguished. No private project identifiers or access addresses are exposed.
+- Chicago arrest classification reports saved notebook results: 86% accuracy on 38,417 held-out examples, approximately 75% majority baseline, 0.78 arrest precision, and 0.59 arrest recall. These were verified against the existing notebook output, not rerun. The original confusion matrix is included as a supporting artifact. This study is not presented as a decision tool for people.
+- Personal research, independent software, and contract services are distinguished. No clients, endorsements, or business outcomes are fabricated.
 
-```
-portfolio/
-├── public/
-│   ├── favicon.svg
-│   └── Christian_Olivares_Rodriguez_Resume.pdf
-├── src/
-│   ├── components/
-│   │   ├── Nav.jsx / Nav.css
-│   │   ├── Hero.jsx / Hero.css
-│   │   ├── Projects.jsx / Projects.css
-│   │   ├── About.jsx / About.css
-│   │   └── Footer.jsx / Footer.css
-│   ├── styles/
-│   │   └── globals.css
-│   ├── App.jsx
-│   └── main.jsx
-├── index.html
-├── vercel.json
-└── package.json
-```
+## Files
 
----
+- `src/styles/globals.css`: shared palette, layout, Aero background, controls, and accessibility defaults.
+- `src/components/Nav.jsx`: navigation and persisted appearance selection.
+- `Hero.jsx`: personal introduction and glass globe.
+- `Projects.jsx`: project evidence and expandable limitations.
+- `About.jsx`: personal approach and CO³ Labs connection.
+- `Footer.jsx`: contact, professional links, and résumé.
+- `public/images/`: actual Lumitudy design preview and saved Chicago confusion matrix.
 
-## Sections
+The existing résumé PDF is preserved. It should be reviewed separately for current wording before publication.
 
-- **Hero** — Title, subtitle, CTA buttons, skill tags
-- **Projects** — Featured Lumitudy card + Ookla Broadband Equity, Chicago Crimes Classifier, and an upcoming RTX 4090 ML project
-- **About** — Bio and quick-stat cards (degree, venture, location, hardware, focus)
-- **Footer** — GitHub, LinkedIn, Email links
+## Verification
 
----
-
-## Running Locally
-
-```bash
-npm install
-npm run dev
-```
-
-Opens at `http://localhost:5173`
-
-## Building for Production
-
-```bash
-npm run build
-```
-
-Output goes to `/dist` — Vercel handles this automatically on every push to `main`.
-
----
-
-## Featured Projects
-
-| Project | Description | Stack |
-|---|---|---|
-| [Lumitudy](https://lumitudy.vercel.app) | AI flashcard platform with Kahoot-style multiplayer | FastAPI, React, WebSockets, Claude API |
-| [Ookla Broadband Equity](https://github.com/Oli-Data/Ookla-Data) | Geospatial broadband disparity analysis across CA | Python, GeoPandas, Census ACS |
-| Chicago Crimes Classifier | PyTorch binary classifier, 86% accuracy on ~38K records | PyTorch, Pandas, Scikit-learn |
-
----
-
-## Contact
-
-- **GitHub:** [github.com/Oli-Data](https://github.com/Oli-Data)
-- **Site:** [christianolivares.us](https://christianolivares.us)
-- **Venture:** [CO³ Labs LLC](https://co3labs.com)
+Production build and source-level checks pass. Browser visual and interaction QA remains unverified: the local-origin permission gate prevented automated viewing, including after renewed user approval. Do not treat the saved build as proof of responsive rendering or interactive behavior.

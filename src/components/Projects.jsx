@@ -1,143 +1,23 @@
 import './Projects.css'
 
+const repo = 'https://github.com/Oli-Data/'
 const projects = [
-  {
-    id: 'lumitudy',
-    featured: true,
-    chip: 'Featured · Full Stack + AI',
-    title: 'Lumitudy',
-    description:
-      'AI-powered flashcard platform with JWT auth, PDF/EPUB ingestion, exam mode, and a Kahoot-style live multiplayer quiz mode — shared lobbies, real-time leaderboard, and friend codes.',
-    bullets: [
-      'Kahoot-style multiplayer via WebSockets — shared lobbies, voting, live leaderboard',
-      'AI flashcard generation from uploaded PDFs and EPUBs via Claude API',
-      'JWT auth with friend codes, exam mode, and persistent storage',
-    ],
-    pills: ['FastAPI', 'React + Vite', 'SQLite', 'WebSockets', 'Claude API'],
-    accent: 'aqua',
-    badge: 'Live',
-    badgeLabel: 'Production',
-    url: 'https://lumitudy.vercel.app',
-    href: 'https://lumitudy.vercel.app',
-  },
-  {
-    id: 'ookla',
-    chip: 'Data Science · Public Policy',
-    title: 'Ookla Broadband Equity',
-    description:
-      'Geospatial analysis of broadband speed disparities across income and demographic lines using FCC + Ookla open datasets. Key finding: rural classification is a 3× stronger predictor than income.',
-    pills: ['Python', 'GeoPandas', 'Census ACS', 'Matplotlib'],
-    accent: 'blue',
-    href: 'https://github.com/Oli-Data/Ookla-Data',
-  },
-  {
-    id: 'chicago',
-    chip: 'Deep Learning · Classification',
-    title: 'Chicago Crimes Classifier',
-    description:
-      'Binary crime classification model using PyTorch. 86% accuracy on ~38K test records with a custom 4-layer fully connected network and evaluation pipeline.',
-    pills: ['PyTorch', 'Pandas', 'Scikit-learn'],
-    accent: 'teal',
-    href: 'https://github.com/Oli-Data/Data-Science-Machine-Learning-Projects/tree/main/Chicago%20Crime%20Project',
-  },
-  {
-    id: 'next',
-    chip: 'RTX 4090 · In Development',
-    title: 'Next ML Project',
-    description:
-      'Fine-tuning or computer vision experiment leveraging local GPU compute. Details coming soon.',
-    pills: ['PyTorch', 'RTX 4090', 'TBD'],
-    accent: 'dim',
-    coming: true,
-  },
+  { id:'ookla', number:'02', kind:'DATA SCIENCE / GEOSPATIAL ANALYSIS', title:'Looking closer at connectivity.', name:'California mobile broadband', status:'Research draft', accent:'blue', description:'Comparing measured mobile broadband across California regions, then examining how geography and Census context shape the picture.', built:'Prepared regional comparisons, mapped speed-test observations, and explored geographic and demographic associations in Python.', evidence:'The notebook and research draft include saved outputs, methods, and unresolved questions. The exploratory associations do not establish a causal or universal ranking of geography and income.', limit:'Speed tests are not a census of service. Census vintage, missing quarters, geographic definitions, and repeated observations need further validation.', href:repo+'Ookla-Data', link:'Explore the research repository', tags:['Python','GeoPandas','Census ACS','Research reporting'] },
+  { id:'luz', number:'03', kind:'PERSONAL AI / CONTINUITY', title:'An assistant that can learn the context.', name:'Luz', status:'Early prototype · Private source', accent:'green', description:'Exploring how a personal assistant can remember useful context, accept corrections, and explain the basis for its recommendations.', built:'The initial application connects input assessment, saved records, and model-generated planning. My focus is the surrounding system and how to evaluate its behavior.', evidence:'Public demonstrations and evaluation results are planned. Source code and personal records stay private.', limit:'Reliable long-term memory, consistent interaction, and selective proactivity are goals, not demonstrated end-to-end capabilities.', tags:['Python','Persistent context','Structured outputs','Evaluation'] },
+  { id:'chicago', number:'04', kind:'APPLIED ML / CLASSIFICATION', title:'A result is only the start of the story.', name:'Chicago arrest classification', status:'Independent notebook study', accent:'jade', description:'A PyTorch classification study using recorded Chicago crime incidents, with attention to class imbalance and the errors hidden by a headline accuracy score.', built:'Built a 60-feature input matrix, a fully connected neural network, class-balanced sampling, and an evaluation workflow.', evidence:'Saved notebook output reports 86% accuracy on 38,417 held-out records, compared with an approximately 75% majority-class baseline. Arrest-class precision is 0.78 and recall is 0.59.', limit:'These are recorded results from a random split, not a fresh rerun or evidence of deployment readiness. The model describes recorded arrest outcomes; it is not a tool for decisions about people.', href:repo+'Data-Science-Machine-Learning-Projects/tree/main/Chicago%20Crime%20Project', link:'Inspect the notebook & results', tags:['PyTorch','Pandas','Scikit-learn','Model evaluation'] },
 ]
 
-function FeaturedCard({ project }) {
-  return (
-    <a
-      className="card card-featured"
-      href={project.href}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <div className={`card-accent accent-${project.accent}`} />
-      <div className="card-featured-inner">
-        <div className="card-featured-body">
-          <span className="card-chip">{project.chip}</span>
-          <h2 className="card-title card-title-lg">{project.title}</h2>
-          <p className="card-desc">{project.description}</p>
-          <ul className="card-bullets">
-            {project.bullets.map(b => (
-              <li key={b}>{b}</li>
-            ))}
-          </ul>
-          <div className="pill-stack">
-            {project.pills.map(p => (
-              <span key={p} className="pill">{p}</span>
-            ))}
-          </div>
-        </div>
-        <div className="card-meta">
-          <div>
-            <div className="card-stat-num">{project.badge}</div>
-            <div className="card-stat-label">{project.badgeLabel}</div>
-          </div>
-          <div className="card-url">{project.url}</div>
-        </div>
-      </div>
-    </a>
-  )
-}
-
-function RegularCard({ project }) {
-  const Tag = project.coming ? 'div' : 'a'
-  const linkProps = project.coming
-    ? {}
-    : { href: project.href, target: '_blank', rel: 'noopener noreferrer' }
-
-  return (
-    <Tag
-      className={`card${project.coming ? ' card-coming' : ''}`}
-      {...linkProps}
-    >
-      <div className={`card-accent accent-${project.accent}`} />
-      <span className={`card-chip${project.coming ? ' card-chip-muted' : ''}`}>
-        {project.chip}
-      </span>
-      <h2 className={`card-title${project.coming ? ' card-title-muted' : ''}`}>
-        {project.title}
-      </h2>
-      <p className={`card-desc${project.coming ? ' card-desc-muted' : ''}`}>
-        {project.description}
-      </p>
-      <div className="pill-stack">
-        {project.pills.map(p => (
-          <span key={p} className={`pill${project.coming ? ' pill-muted' : ''}`}>
-            {p}
-          </span>
-        ))}
-      </div>
-      {project.coming && (
-        <span className="coming-badge">Coming Soon</span>
-      )}
-    </Tag>
-  )
+function ProjectVisual({id}) {
+  if(id==='ookla') return <div className="project-visual map-visual" aria-hidden="true"><svg viewBox="0 0 360 180"><defs><linearGradient id="map-glass" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#c9eefa"/><stop offset="1" stopColor="#4a99be"/></linearGradient></defs><path d="M151 17l62 5-7 53 62 72-24 19-51-33-27-50-21-18z" fill="url(#map-glass)" fillOpacity=".65" stroke="#e0f8ff"/><g stroke="currentColor" strokeOpacity=".2"><path d="M24 45h310M24 90h310M24 135h310M85 20v145M135 20v145M185 20v145M235 20v145M285 20v145"/></g><g fill="#e2faf3" stroke="#429dab"><circle cx="170" cy="68" r="5"/><circle cx="188" cy="103" r="5"/><circle cx="235" cy="144" r="5"/></g><path d="M170 68l18 35 47 41" stroke="#b6f4d2" fill="none" strokeDasharray="4 5"/></svg><span>California / geographic study</span></div>
+  if(id==='luz') return <div className="project-visual luz-visual" aria-hidden="true"><div className="luz-halo"><i/><i/><i/><span>luz</span></div><span>Context → correction → continuity</span></div>
+  return <div className="project-visual model-visual"><div><strong>86<span>%</span></strong><p>Recorded accuracy</p></div><div><strong>0.59</strong><p>Arrest-class recall</p></div><span>Saved notebook results · Random holdout</span></div>
 }
 
 export default function Projects() {
-  const featured = projects.find(p => p.featured)
-  const rest = projects.filter(p => !p.featured)
-
-  return (
-    <section id="projects">
-      <p className="section-label">Selected Projects</p>
-      <hr className="section-divider" />
-      <div className="projects-grid">
-        <FeaturedCard project={featured} />
-        {rest.map(p => (
-          <RegularCard key={p.id} project={p} />
-        ))}
-      </div>
-    </section>
-  )
+  return <section id="projects" className="projects section-width">
+    <div className="section-heading"><div><p className="eyebrow">SELECTED WORK / 01—04</p><h2>From a question<br />to something concrete.</h2></div><p>Learning tools, geographic research, and personal AI. Each project shows a different part of how I work.</p></div>
+    <article className="featured-project glass" id="lumitudy"><div className="featured-copy"><p className="eyebrow">01 / LEARNING SOFTWARE</p><span className="status-chip">Working prototype</span><h3>Lumitudy<span>A brighter way to study.</span></h3><p>Turning textbook chapters into flashcards, quizzes, and shared study sessions, with source passages close at hand.</p><ul className="contribution-list"><li>Document ingestion and chapter extraction</li><li>AI-assisted study material with source references</li><li>Saved sets, server-graded exams, and live quiz rooms</li></ul><div className="tags"><span>FastAPI</span><span>React</span><span>WebSockets</span><span>SQLite</span></div><details><summary>My work & current limits <span>+</span></summary><div className="detail-body"><p>I built the application workflow from uploaded documents to interactive practice, including user accounts, saved material, and validation around generated output.</p><p>Source passages help review generated answers; they do not prove correctness. Live rooms currently depend on the running server. Hosting, recovery, and concurrent use still need work before a dependable public launch.</p><p><strong>Future home:</strong> lumitudy.com. The custom domain is not connected yet.</p></div></details></div><figure className="featured-image"><div className="window-bar"><span/><span/><span/><p>LUMITUDY / LOCAL DESIGN PREVIEW</p></div><img src="/images/lumitudy-preview.jpg" width="1440" height="1084" alt="Lumitudy’s aqua glass sign-in screen, with colorful study cards and a brighter way to study headline." loading="lazy"/><figcaption>A working application with a playful identity. Public launch in preparation.</figcaption></figure></article>
+    <div className="project-grid">{projects.map(p=><article className={`project-card glass tone-${p.accent}`} key={p.id} id={p.id}><ProjectVisual id={p.id}/><div className="project-content"><p className="eyebrow">{p.number} / {p.kind}</p><span className="status-chip">{p.status}</span><h3>{p.name}</h3><p className="project-thesis">{p.title}</p><p>{p.description}</p><div className="tags">{p.tags.map(t=><span key={t}>{t}</span>)}</div><details><summary>Approach, evidence & limits <span>+</span></summary><div className="detail-body"><h4>What I built</h4><p>{p.built}</p><h4>Evidence</h4><p>{p.evidence}</p>{p.id==='chicago'&&<a className="text-link" href="/images/chicago-confusion-matrix.png" target="_blank" rel="noopener noreferrer">View the recorded confusion matrix ↗</a>}<h4>What remains open</h4><p>{p.limit}</p></div></details>{p.href&&<a className="text-link project-link" href={p.href} target="_blank" rel="noopener noreferrer">{p.link} ↗</a>}</div></article>)}</div>
+    <p className="project-disclosure">Independent work, not client commissions. Prototype and research status are stated separately from demonstrated results.</p>
+  </section>
 }
