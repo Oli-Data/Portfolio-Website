@@ -1,3 +1,4 @@
+import ArrowIcon from './ArrowIcon'
 import './Hero.css'
 
 function GlassWorld() {
@@ -16,7 +17,7 @@ export default function Hero() {
       <h1>Christian<br /><span>Olivares-Rodriguez.</span></h1>
       <h2>Curiosity, made useful.</h2>
       <p className="hero-subtitle">I work across data science, applied machine learning, and software. I’m interested in what happens when a good question becomes a tool someone can actually use.</p>
-      <div className="hero-cta"><a href="#projects" className="button button-primary">Explore my work <span>↗</span></a><a href="/Christian_Olivares_Rodriguez_Resume.pdf" className="button button-glass" target="_blank" rel="noopener noreferrer">Read my résumé <span>↗</span></a></div>
+      <div className="hero-cta"><a href="#projects" className="button button-primary">Explore my work <span><ArrowIcon /></span></a><a href="/Christian_Olivares_Rodriguez_Resume.pdf" className="button button-glass" target="_blank" rel="noopener noreferrer">Read my résumé <span><ArrowIcon /></span></a></div>
       <div className="hero-context"><span>Based in Visalia, California</span><span>Founder, CO³ Labs</span></div>
     </div><GlassWorld />
     <div className="hero-footnote"><span>INDEPENDENT PROJECTS. PRACTICAL QUESTIONS.</span><a href="#projects">Scroll to explore ↓</a></div>
