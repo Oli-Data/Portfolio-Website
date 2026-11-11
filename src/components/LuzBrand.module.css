@@ -1,0 +1,12 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 184px;
+  min-width: 0;
+  color: var(--text-primary);
+}
+.wordmark { display: block; width: 100%; min-width: 0; height: auto; flex: 1 1 0; }
+.compact { flex: 0 1 138px; max-width: 138px; gap: 10px; }
+@media (forced-colors: active) { .brand, .compact { color: CanvasText; } }

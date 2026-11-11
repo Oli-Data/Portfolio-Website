@@ -1,0 +1,34 @@
+.symbol {
+  display: block;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  --research-edge: #265f65;
+  --research-purple: #68458d;
+}
+.compact { width: 40px; height: 40px; flex-basis: 40px; }
+
+/* Fixed mint, gold and lilac match the colored product vector family. */
+.sheet { fill: #bce5db; stroke: var(--research-edge); stroke-width: 1.6; }
+.heading { stroke: #956923; }
+.notes { stroke: #34777a; }
+.handle { stroke: var(--research-purple); }
+.lens { fill: #eee5fc; stroke: var(--research-purple); stroke-width: 2.5; }
+.data { fill: #467c83; }
+.highlight { fill: #e8bc60; stroke: #836024; stroke-width: 1; }
+
+:global(html[data-theme="night"]) .symbol {
+  --research-edge: #9cdbd4;
+  --research-purple: #c4a2e8;
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme])) .symbol {
+    --research-edge: #9cdbd4;
+    --research-purple: #c4a2e8;
+  }
+}
+@media (forced-colors: active) {
+  .sheet, .lens { fill: Canvas; stroke: CanvasText; }
+  .heading, .notes, .handle { stroke: CanvasText; }
+  .data, .highlight { fill: CanvasText; stroke: none; }
+}

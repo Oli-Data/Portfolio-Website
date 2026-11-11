@@ -1,0 +1,54 @@
+.symbol {
+  display: block;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  color: var(--theme-link);
+  --owl-edge: #235f53;
+  --flower-edge: #21645e;
+  --selah-purple: #65378f;
+}
+.compact { width: 40px; height: 40px; flex-basis: 40px; }
+
+/* Fixed brand colors with contrasting contour ink on each reading surface. */
+.owlFace { fill: #8bd9c1; stroke: var(--owl-edge); stroke-width: 1.6; stroke-linejoin: round; }
+.owlBrow { fill: #c8f3df; }
+.owlGold { fill: #f5d57c; stroke: #235f53; stroke-width: 1.3; stroke-linejoin: round; }
+.owlPupil { fill: #173e38; }
+.flowerPetals { fill: #b8df79; stroke: var(--flower-edge); stroke-width: 1.5; stroke-linejoin: round; }
+.flowerHub { fill: #38877e; }
+.flowerCenter { fill: #f4ce76; stroke: #21645e; stroke-width: 1.3; }
+.selahFlames { fill: #f3cf83; stroke: var(--selah-purple); stroke-width: 1.5; stroke-linejoin: round; }
+.selahBranches { color: var(--selah-purple); }
+
+:global(html[data-theme="night"]) .symbol {
+  --owl-edge: #a4e8d3;
+  --flower-edge: #85d6c9;
+  --selah-purple: #c3a0e5;
+}
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme])) .symbol {
+    --owl-edge: #a4e8d3;
+    --flower-edge: #85d6c9;
+    --selah-purple: #c3a0e5;
+  }
+}
+
+/* Luz keeps the selected deep-space palette while the wordmark follows theme ink. */
+.luzOrb { fill: #14103f; }
+.luzRim { stroke: #9c91ec; }
+.luzRibbon { stroke: #7160c9; }
+.luzStars { fill: #f4efff; }
+
+@media (forced-colors: active) {
+  .symbol { color: CanvasText; }
+  .owlFace, .flowerPetals, .selahFlames { fill: Canvas; stroke: CanvasText; }
+  .owlBrow { display: none; }
+  .owlGold, .flowerCenter { fill: Canvas; stroke: CanvasText; }
+  .owlPupil, .flowerHub { fill: CanvasText; }
+  .selahBranches { color: CanvasText; }
+  .luzOrb { fill: Canvas; }
+  .luzRim { stroke: CanvasText; }
+  .luzRibbon { display: none; }
+  .luzStars { fill: CanvasText; }
+}
