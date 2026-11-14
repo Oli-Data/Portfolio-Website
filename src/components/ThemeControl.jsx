@@ -36,7 +36,13 @@ export default function ThemeControl() {
     trigger.current?.focus()
   }
 
-  return <div className="theme-control" ref={wrapper} data-open={open} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false) }}>
+  function handleBlur(event) {
+    // Safari can blur a button without focusing the next tapped button. Keep
+    // the choices open until its click runs; outside taps close via pointerdown.
+    if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) setOpen(false)
+  }
+
+  return <div className="theme-control" ref={wrapper} data-open={open} onBlur={handleBlur}>
     <button ref={trigger} type="button" className="theme-orb" aria-expanded={open} aria-controls={id} aria-label={open ? "Close appearance options" : `Appearance: ${labels[preference]}. Change theme`} title={open ? "Close appearance options" : `Appearance: ${labels[preference]}`} onClick={() => setOpen(value => !value)} onKeyDown={event => { if (event.key === 'ArrowDown') { event.preventDefault(); setOpen(true) } }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true" style={{ display: open ? undefined : "none" }}><path d="m7 7 10 10M17 7 7 17" /></svg>{!open && <ThemeIcon value={preference} />}</button>
     <div id={id} ref={choices} className="theme-options" role="group" aria-label="Website appearance" aria-hidden={!open} inert={!open}>
       <div className="theme-season"><span className="season-swatch" aria-hidden="true" /><div><strong>{palette ? `${palette.month} / ${palette.name}` : 'Monthly color'}</strong><span>Follows your local calendar</span></div></div>
