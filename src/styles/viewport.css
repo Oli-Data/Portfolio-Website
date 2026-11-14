@@ -1,0 +1,52 @@
+/* Paint beyond Safari's inset content area while keeping controls in reach. */
+:root {
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+}
+
+/* Safari also uses the page's solid color for browser-controlled regions.
+   Follow the active monthly palette instead of a hard-coded night color. */
+html {
+  background-color: var(--bg);
+  scroll-padding-top: calc(125px + var(--safe-area-top));
+}
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: var(--safe-area-top) var(--safe-area-right) var(--safe-area-bottom) var(--safe-area-left);
+}
+
+/* A fixed inset:0 box can stop above Safari's floating toolbar. Use the
+   large viewport for decoration so the scene stays full-height as bars move.
+   Overscan the safe edges; this layer contains no interactive content. */
+.aero-background {
+  top: calc(0px - var(--safe-area-top));
+  bottom: auto;
+  min-height: calc(100% + var(--safe-area-top) + var(--safe-area-bottom));
+  height: calc(100vh + var(--safe-area-top) + var(--safe-area-bottom));
+  height: calc(100lvh + var(--safe-area-top) + var(--safe-area-bottom));
+}
+.nav-wrap { top: calc(18px + var(--safe-area-top)); }
+.skip-link {
+  top: calc(10px + var(--safe-area-top));
+  left: calc(10px + var(--safe-area-left));
+  max-width: calc(100% - var(--safe-area-left) - var(--safe-area-right) - 20px);
+  transform: translateY(calc(-100% - 20px - var(--safe-area-top)));
+}
+.mobile-menu-panel {
+  max-height: calc(100dvh - 110px - var(--safe-area-top) - var(--safe-area-bottom));
+}
+
+@media (max-width: 760px) {
+  html { scroll-padding-top: calc(100px + var(--safe-area-top)); }
+  .nav-wrap { top: calc(10px + var(--safe-area-top)); }
+  .theme-options {
+    max-height: calc(100dvh - 110px - var(--safe-area-top) - var(--safe-area-bottom));
+  }
+}
+
+@media (forced-colors: active) {
+  html { background-color: Canvas; }
+}

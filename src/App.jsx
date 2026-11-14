@@ -6,6 +6,7 @@ import About from './components/About'
 import Footer from './components/Footer'
 import './styles/appearance.css'
 import './styles/refinements.css'
+import './styles/viewport.css'
 
 export default function App() {
   return <>
