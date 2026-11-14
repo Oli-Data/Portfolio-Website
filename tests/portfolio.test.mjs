@@ -8,18 +8,23 @@ const current = read('src/components/Projects.jsx')
 const original = read('tests/fixtures/projects-before-co3.txt')
 const projectData = source => vm.runInNewContext(source.slice(source.indexOf('const repo ='),source.indexOf('function ProjectVisual')) + '; projects')
 
-test('all existing project statements, status, evidence, limits and links are preserved', () => {
+test('copy revisions preserve project identities, maturity, destinations and recorded metrics', () => {
   const before = projectData(original), after = projectData(current)
   for (const old of before) {
     const next = after.find(p => p.id === old.id)
-    for (const key of Object.keys(old).filter(key => key !== 'number')) assert.equal(JSON.stringify(next[key]), JSON.stringify(old[key]), `${old.id}.${key}`)
+    assert.ok(next, old.id)
+    for (const key of ['id', 'kind', 'name', 'status', 'accent', 'href', 'tags']) assert.equal(JSON.stringify(next[key]), JSON.stringify(old[key]), `${old.id}.${key}`)
+    for (const key of ['description', 'built', 'evidence', 'limit']) assert.ok(next[key]?.trim(), `${old.id}.${key}`)
   }
   assert.equal(after.length, before.length)
+  const chicago = after.find(p => p.id === 'chicago')
+  const recordedMetrics = /\d+(?:[,.]\d+)*%?/g
+  assert.deepEqual(chicago.evidence.match(recordedMetrics), before.find(p => p.id === 'chicago').evidence.match(recordedMetrics))
+  assert.match(chicago.limit, /random (?:split|holdout)/)
+  assert.match(current, /Random holdout · ~75% baseline/)
 })
 
-test('original Lumitudy text and all existing images and URLs remain', () => {
-  const originalFeature = original.slice(original.indexOf('<article className="featured-project'),original.indexOf('<div className="project-grid">'))
-  for (const text of originalFeature.matchAll(/>([^<>{}]+)</g)) if(text[1].trim() && text[1] !== 'Lumitudy') assert.ok(current.includes(text[1]), text[1])
+test('project copy retains existing images, URLs and downloadable artifacts', () => {
   for (const source of original.matchAll(/(?:href|src)="([^"]+)"/g)) assert.ok(current.includes(source[1]), source[1])
   for(const path of ['/images/lumitudy-aqua-preview.png','/images/chicago-confusion-matrix.png','/Christian_Olivares_Rodriguez_Resume.pdf']) assert.ok(existsSync(new URL('../public' + path, import.meta.url)), path)
 })
@@ -28,7 +33,7 @@ test('working software precedes research and early exploration without hidden ev
   assert.ok(current.indexOf('WORKING SOFTWARE') < current.indexOf('RESEARCH & ANALYSIS'))
   assert.ok(current.indexOf('RESEARCH & ANALYSIS') < current.indexOf('EARLY EXPLORATION'))
   assert.match(current,/projects.filter\(p => p.id !== 'luz'\)/)
-  assert.match(current,/<details><summary>Approach, evidence & limits/)
+  assert.match(current,/<details><summary>[\s\S]*?<div className="detail-body">[\s\S]*?\{p.built\}[\s\S]*?\{p.evidence\}[\s\S]*?\{p.limit\}[\s\S]*?<\/details>/)
   assert.match(current,/data-research-symbol|ResearchSymbol compact/)
   assert.match(current,/<LumitudyBrand compact/)
   assert.match(current,/<LuzBrand compact/)
@@ -82,7 +87,13 @@ test('Selah is a fifth project with the approved identity and honest alpha bound
   assert.match(current, /SELECTED WORK \/ 01—05/)
   assert.match(selah, /id="selah"/)
   assert.match(selah, /<SelahBrand compact/)
-  for (const claim of ['Alpha · Local Windows build', 'Unsigned alpha. No public download yet.', 'complete live operator test', 'Preparing a service does not start streaming or recording.', 'exact frame synchronization is not guaranteed', 'OBS streaming status alone does not confirm a public Facebook broadcast', 'not a verified live broadcast']) assert.ok(selah.includes(claim), claim)
+  assert.match(selah, /status-chip">Windows alpha</)
+  assert.match(selah, /unsigned Windows alpha/)
+  assert.match(selah, /Clean-machine and complete live-service testing are still pending/)
+  assert.match(selah, /No public download is available yet/)
+  assert.match(selah, /Preparation keeps streaming and recording off/)
+  assert.match(selah, /final review[\s\S]*operator starts both outputs/)
+  assert.match(selah, /operator confirms the audience and publication state on Facebook/)
   assert.ok(current.indexOf('id="lumitudy"') < current.indexOf('id="selah"'))
   assert.ok(current.indexOf('id="selah"') < current.indexOf('RESEARCH & ANALYSIS'))
   const brand = read('src/components/SelahBrand.jsx')
