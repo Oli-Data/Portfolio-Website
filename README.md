@@ -18,7 +18,7 @@ Colors follow the visitor’s local calendar. Day, Night, and Auto are available
 
 On mobile, the icon-only navigation trigger retains its accessible name and 44px target. Navigation and appearance menus tolerate a blur event with no next focused element, allowing Safari-style taps to activate before dismissal. Outside taps, keyboard focus changes, Escape, and navigation still close the menu.
 
-The viewport opts into edge-to-edge layout on iPhone. The decorative background uses the large viewport height and extends through the safe edges instead of ending above Safari’s floating toolbar. Content, sticky navigation, anchor offsets, and open menus account for safe-area insets. The document canvas follows the active monthly palette; the old fixed night-only theme-color tag is removed. Safari still controls the status/address-bar tint, so this does not promise full artwork in browser-owned regions.
+The viewport opts into edge-to-edge layout on iPhone. Safari can extend a solid color behind its controls instead of showing the fixed background artwork. The decorative scene therefore fades into the matching document canvas at its top and bottom edges, avoiding an abrupt transition from gradient to solid fill. Content, sticky navigation, anchor offsets, and open menus account for safe-area insets. The canvas follows the active monthly palette; there is no fixed night-only theme-color tag. This blends the page with Safari’s UI rather than claiming control over artwork in browser-owned regions.
 
 Main actions and project destinations have beveled glass edges, a fine-pointer hover lift, a pressed state, and a separate keyboard focus ring. Reduced motion removes movement; forced colors uses system colors.
 
@@ -46,7 +46,7 @@ No clients, endorsements, production readiness, or business outcomes are invente
 - `src/components/Footer.jsx`: contact, professional links, and résumé.
 - `src/lib/appearance.js`: palette/controller source; Vite injects its shared initializer into the HTML.
 - `src/styles/`: shared design, appearance tokens, and refinements.
-- `src/styles/viewport.css`: full-height background and safe-area layout.
+- `src/styles/viewport.css`: background edge blending and safe-area layout.
 - `public/images/`: Lumitudy interface preview, Selah workspace screenshot, and recorded Chicago confusion matrix.
 
 ## Verification
@@ -57,4 +57,4 @@ The copy revision passed the production build and all 32 regression checks. Chro
 
 The production build and checks do not publish the website. No dependencies were added for the copy revision.
 
-The iPhone background follow-up also passes the build and all 32 checks. Chrome layout review used 320px/390px portrait frames with simulated 59px top and 34px bottom insets, an 844px landscape frame with 59px side and 21px bottom insets, and an ordinary 1100px desktop frame. The background covered each resized viewport, anchors cleared the sticky header, footer links cleared the bottom inset, and the skip link appeared only on keyboard focus inside the safe area. Day/Night canvas colors matched. These simulations do not verify Safari’s native status/address-bar compositing; that requires an actual iPhone.
+Safe-area layout review used 320px/390px portrait frames with simulated 59px top and 34px bottom insets, an 844px landscape frame with 59px side and 21px bottom insets, and an ordinary 1100px desktop frame. Anchors cleared the sticky header, footer links cleared the bottom inset, and the skip link appeared only on keyboard focus inside the safe area. These simulations do not verify Safari’s native status/address-bar compositing; an actual iPhone screenshot showed that viewport overscan alone did not remove the seam. The current approach blends the artwork into the existing canvas color at the visible boundaries. It passes the production build and all 32 checks; rendered Day/Night edge pixels match the canvas within JPEG rounding, and 320px mobile navigation and 1100px desktop layout remain usable.
