@@ -1,4 +1,4 @@
-/* Paint beyond Safari's inset content area while keeping controls in reach. */
+/* Keep controls inside safe areas and blend the scene into Safari's UI fill. */
 :root {
   --safe-area-top: env(safe-area-inset-top, 0px);
   --safe-area-right: env(safe-area-inset-right, 0px);
@@ -18,15 +18,16 @@ body {
   padding: var(--safe-area-top) var(--safe-area-right) var(--safe-area-bottom) var(--safe-area-left);
 }
 
-/* A fixed inset:0 box can stop above Safari's floating toolbar. Use the
-   large viewport for decoration so the scene stays full-height as bars move.
-   Overscan the safe edges; this layer contains no interactive content. */
+/* Safari can extend a solid color, rather than the gradient artwork, behind
+   its controls. Fade the decorative layer into the same --bg canvas at the
+   actual fixed viewport edges. Making the layer taller does not control that
+   browser-owned fill. The mask applies only to decoration, never content. */
 .aero-background {
-  top: calc(0px - var(--safe-area-top));
-  bottom: auto;
-  min-height: calc(100% + var(--safe-area-top) + var(--safe-area-bottom));
-  height: calc(100vh + var(--safe-area-top) + var(--safe-area-bottom));
-  height: calc(100lvh + var(--safe-area-top) + var(--safe-area-bottom));
+  inset: 0;
+  min-height: 0;
+  height: auto;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 8px, #000 80px, #000 calc(100% - 104px), transparent calc(100% - 8px));
+  mask-image: linear-gradient(to bottom, transparent 8px, #000 80px, #000 calc(100% - 104px), transparent calc(100% - 8px));
 }
 .nav-wrap { top: calc(18px + var(--safe-area-top)); }
 .skip-link {
