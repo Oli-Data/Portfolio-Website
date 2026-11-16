@@ -69,11 +69,13 @@ test('local anchors have actual destinations and no future-home link was fabrica
 })
 
 
-test('repeated link arrows are removed while real destinations receive accessible depth', () => {
+test('primary actions retain accessible depth while supporting destinations stay quiet', () => {
   const components=['Hero','Projects','About','Footer','Nav'].map(name=>read(`src/components/${name}.jsx`)).join('\n')
   assert.doesNotMatch(components, /ArrowIcon|Scroll to explore ↓|Back to top ↑|>→</)
   const css=read('src/styles/refinements.css')
-  assert.match(css, /a\[href\]:is\(\.button, \.project-link\)/)
+  assert.match(css, /a\[href\]\.button/)
+  assert.match(css, /a\[href\]\.text-link/)
+  assert.match(css, /text-decoration:underline/)
   assert.match(css, /perspective\(700px\) rotateX\(3deg\)/)
   assert.match(css, /min-height:44px/)
   assert.match(css, /:focus-visible/)

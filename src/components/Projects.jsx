@@ -4,6 +4,7 @@ import SelahBrand from './SelahBrand'
 import ProductSymbol from './ProductSymbol'
 import ResearchSymbol from './ResearchSymbol'
 import './Projects.css'
+import './ProjectPreview.css'
 
 const repo = 'https://github.com/Oli-Data/'
 const projects = [
@@ -48,7 +49,7 @@ function ProjectVisual({id}) {
 }
 
 function ProjectCard({ p }) {
-  return <article className={`project-card glass tone-${p.accent}`} id={p.id}>
+  return <article className={`project-card glass tone-${p.accent}`} id={p.id} data-scroll-reveal="" data-reveal-delay={p.id === 'chicago' ? '80' : undefined}>
     <ProjectVisual id={p.id}/>
     <div className="project-content">
       <p className="eyebrow">{p.number} / {p.kind}</p><span className="status-chip">{p.status}</span>
@@ -68,9 +69,9 @@ function ProjectCard({ p }) {
 
 export default function Projects() {
   return <section id="projects" className="projects section-width">
-    <div className="section-heading"><div><p className="eyebrow">SELECTED WORK / 01—05</p><h2>Selected projects.</h2></div><p>Study tools, livestream automation, and research using real-world datasets.</p></div>
+    <div className="section-heading" data-scroll-reveal=""><div><p className="eyebrow">SELECTED WORK / 01—05</p><h2>Selected projects.</h2></div><p>Study tools, livestream automation, and research using real-world datasets.</p></div>
     <p className="project-group-label">WORKING SOFTWARE</p>
-    <article className="featured-project glass" id="lumitudy">
+    <article className="featured-project glass" id="lumitudy" data-scroll-reveal="">
       <div className="featured-copy">
         <p className="eyebrow">01 / LEARNING SOFTWARE</p><span className="status-chip">Working prototype</span>
         <h3><LumitudyBrand compact /><span className="project-tagline">Turn chapters into practice.</span></h3>
@@ -86,7 +87,7 @@ export default function Projects() {
       </div>
       <figure className="featured-image"><div className="window-bar"><span/><span/><span/><p>LUMITUDY / INTERFACE PREVIEW</p></div><img src="/images/lumitudy-aqua-preview.png" width="1212" height="1080" alt="Lumitudy’s aqua glass sign-in screen, with sky-blue and fresh-green study cards and a brighter way to study headline." loading="lazy"/><figcaption>Lumitudy prototype · interface preview.</figcaption></figure>
     </article>
-    <article className="featured-project glass selah-project" id="selah">
+    <article className="featured-project glass selah-project" id="selah" data-scroll-reveal="">
       <div className="featured-copy">
         <p className="eyebrow">02 / WORKFLOW AUTOMATION</p>
         <span className="status-chip">Windows alpha</span>
@@ -101,7 +102,7 @@ export default function Projects() {
         </div></details>
         <a className="text-link project-link" href="/images/selah/selah-workspace-wide.png" target="_blank" rel="noopener noreferrer">View the full workspace screenshot</a>
       </div>
-      <figure className="featured-image selah-image"><div className="window-bar"><span/><span/><span/><p>SELAH / WINDOWS DESKTOP ALPHA</p></div><img src="/images/selah/selah-workspace-wide.png" width="2560" height="1440" alt="Selah’s dark desktop workspace with editable service details on the left and Facebook, OBS, and start-review panels on the right." loading="lazy"/><figcaption>Selah’s Windows alpha workspace.</figcaption></figure>
+      <figure className="featured-image selah-image"><div className="window-bar"><span/><span/><span/><p>SELAH / WINDOWS DESKTOP ALPHA</p></div><div className="project-preview-crop"><img src="/images/selah/selah-workspace-wide.png" width="2560" height="1440" alt="Selah’s service editor beside the Facebook and OBS connection checks and start-review controls." loading="lazy"/></div><figcaption>Service details and connection checks · Windows alpha.</figcaption></figure>
     </article>
     <div className="research-group"><p className="project-group-label">RESEARCH & ANALYSIS</p><div className="project-grid">{projects.filter(p => p.id !== 'luz').map(p => <ProjectCard key={p.id} p={p} />)}</div></div>
     <div className="project-explorations"><div className="exploration-heading"><p className="project-group-label">EARLY EXPLORATION</p><p>Personal AI, still in development.</p></div>{projects.filter(p => p.id === 'luz').map(p => <ProjectCard key={p.id} p={p} />)}</div>

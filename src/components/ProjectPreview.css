@@ -1,0 +1,18 @@
+/* Frame the working panels while retaining the full-resolution original link. */
+.project-preview-crop {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 5 / 3;
+  background: #103b43;
+}
+
+.project-preview-crop > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220%;
+  max-width: none;
+  height: auto;
+  transform: translate(-50%, -42.5%);
+}

@@ -1,0 +1,27 @@
+/* Content is visible by default. Only the mounted reveal controller stages
+   offscreen panels, and keyboard focus always makes a panel immediately usable. */
+@media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  [data-reveal-pending]:not(:focus-within) {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+}
+
+@media (max-width: 640px) and (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  [data-reveal-pending]:not(:focus-within) {
+    transform: translateY(24px);
+  }
+}
+
+[data-scroll-reveal]:focus-within {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* These override both a staged pose and an in-flight Web Animation. */
+@media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+  [data-scroll-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

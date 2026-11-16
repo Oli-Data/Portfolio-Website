@@ -20,7 +20,11 @@ On mobile, the icon-only navigation trigger retains its accessible name and 44px
 
 The viewport opts into edge-to-edge layout on iPhone. Safari can extend a solid color behind its controls instead of showing the fixed background artwork. The decorative scene therefore fades into the matching document canvas at its top and bottom edges, avoiding an abrupt transition from gradient to solid fill. Content, sticky navigation, anchor offsets, and open menus account for safe-area insets. The canvas follows the active monthly palette; there is no fixed night-only theme-color tag. This blends the page with Safari’s UI rather than claiming control over artwork in browser-owned regions.
 
-Main actions and project destinations have beveled glass edges, a fine-pointer hover lift, a pressed state, and a separate keyboard focus ring. Reduced motion removes movement; forced colors uses system colors.
+Main actions have beveled glass edges, a fine-pointer hover lift, a pressed state, and a separate keyboard focus ring. Project destinations and supporting links use a quieter underlined treatment. Section introductions use fine dividers, supporting explanations sit on subdued reading surfaces, and larger project text improves readability. The featured work retains the strongest glass treatment. Reduced motion removes movement; forced colors uses system colors.
+
+Selah’s preview uses the same 5:3 framing as CO³ Labs to show the service editor, connection checks, and start-review controls. The source image is unchanged and the full workspace remains linked. The personal globe, monthly palettes, content, and Safari safe-area handling remain in place.
+
+Below-the-fold headings, project cards, About content, and the contact panel fade and rise into view once per page visit. Paired panels have a small stagger. The hero and navigation appear immediately. Reveals respect reduced motion and forced colors, expose focused content immediately, and release their animation effects after finishing. Content stays readable in print and when animation APIs are unavailable.
 
 ## Content and evidence
 
@@ -42,9 +46,11 @@ No clients, endorsements, production readiness, or business outcomes are invente
 - `src/components/ThemeControl.jsx`: appearance menu.
 - `src/components/Hero.jsx`: introduction and globe.
 - `src/components/Projects.jsx`: project descriptions and expandable notes.
+- `src/components/ProjectPreview.css`: Selah screenshot framing.
 - `src/components/About.jsx`: background and CO³ Labs connection.
 - `src/components/Footer.jsx`: contact, professional links, and résumé.
 - `src/lib/appearance.js`: palette/controller source; Vite injects its shared initializer into the HTML.
+- `src/lib/scroll-reveal.js` and `src/styles/reveals.css`: progressive scroll reveals and accessible motion fallbacks.
 - `src/styles/`: shared design, appearance tokens, and refinements.
 - `src/styles/viewport.css`: background edge blending and safe-area layout.
 - `public/images/`: Lumitudy interface preview, Selah workspace screenshot, and recorded Chicago confusion matrix.
@@ -56,5 +62,7 @@ The regression suite checks appearance across all twelve palettes and Day/Night 
 The copy revision passed the production build and all 32 regression checks. Chrome review covered 320px, 390px, and 1100px frames, expanded project notes, keyboard disclosure controls, Day/Night switching, and all three mobile destinations with simulated Safari tap-focus behavior. No horizontal text overflow appeared at the checked widths. Browser emulation does not replace physical-device or screen-reader testing.
 
 The production build and checks do not publish the website. No dependencies were added for the copy revision.
+
+The CO³ visual and motion refinements pass the production build, ESLint, and all 40 regression checks. Layout review covered 1440px desktop, 820px tablet, and 390px/320px phone layouts, Day/Night appearance, mobile anchor navigation, keyboard-operated project notes, and the Selah crop. Reveal review confirmed intermediate opacity/translation and settled content on desktop and 390px phone layouts, plus immediate visibility when keyboard focus enters an off-screen project. Eight behavioral tests cover reveal lifecycle, motion preferences, keyboard/pointer access, cleanup, and unavailable or failed animation APIs. No horizontal page or text overflow appeared at the checked widths. Monthly tokens and source image bytes are unchanged; the live preview is local.
 
 Safe-area layout review used 320px/390px portrait frames with simulated 59px top and 34px bottom insets, an 844px landscape frame with 59px side and 21px bottom insets, and an ordinary 1100px desktop frame. Anchors cleared the sticky header, footer links cleared the bottom inset, and the skip link appeared only on keyboard focus inside the safe area. These simulations do not verify Safari’s native status/address-bar compositing; an actual iPhone screenshot showed that viewport overscan alone did not remove the seam. The current approach blends the artwork into the existing canvas color at the visible boundaries. It passes the production build and all 32 checks; rendered Day/Night edge pixels match the canvas within JPEG rounding, and 320px mobile navigation and 1100px desktop layout remain usable.
