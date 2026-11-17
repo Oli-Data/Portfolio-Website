@@ -4,7 +4,7 @@ import './Nav.css'
 
 const links = [['#projects', 'Selected work'], ['#about', 'About me'], ['#contact', 'Let’s talk']]
 
-export default function Nav() {
+export default function Nav({ homePath = '' }) {
   const menu = useRef(null)
   const trigger = useRef(null)
   useEffect(() => {
@@ -33,12 +33,12 @@ export default function Nav() {
   }
 
   return <header className="nav-wrap"><nav className="nav" aria-label="Main navigation">
-    <a className="nav-logo" href="#home" aria-label="Christian Olivares-Rodriguez, home"><span className="monogram" aria-hidden="true"><span className="monogram-letters">c<span>o</span></span></span><span>Christian O.<small>DATA · SOFTWARE · AI</small></span></a>
-    <ul className="nav-links">{links.map(([href, label]) => <li key={href}><a href={href}>{label}</a></li>)}</ul>
+    <a className="nav-logo" href={`${homePath}#home`} aria-label="Christian Olivares-Rodriguez, home"><span className="monogram" aria-hidden="true"><span className="monogram-letters">c<span>o</span></span></span><span>Christian O.<small>DATA · SOFTWARE · AI</small></span></a>
+    <ul className="nav-links">{links.map(([href, label]) => <li key={href}><a href={`${homePath}${href}`}>{label}</a></li>)}</ul>
     <div className="nav-controls"><ThemeControl />
       <details className="mobile-menu" ref={menu} onBlur={handleMenuBlur}>
         <summary ref={trigger} aria-label="Navigation menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" /></svg></summary>
-        <div className="mobile-menu-panel"><p className="eyebrow">EXPLORE THE PORTFOLIO</p>{links.map(([href, label]) => <a key={href} href={href} onClick={() => { menu.current.open = false }}>{label}</a>)}</div>
+        <div className="mobile-menu-panel"><p className="eyebrow">EXPLORE THE PORTFOLIO</p>{links.map(([href, label]) => <a key={href} href={`${homePath}${href}`} onClick={() => { menu.current.open = false }}>{label}</a>)}</div>
       </details>
     </div>
   </nav></header>

@@ -14,9 +14,10 @@ const projects = [
     status:'Research draft', accent:'blue',
     description:'I analyzed Ookla mobile speed-test data for the Central Valley, Bay Area, and Southern California, comparing regional performance and mapping it alongside Census data.',
     built:'Built a Python workflow to load Ookla tiles from S3, compare median download speed, upload speed, and latency, and join observations to Census tracts with GeoPandas.',
-    evidence:'The notebook includes yearly regional comparisons, speed-distribution charts, and maps. Census summaries explore how measured speeds vary with income, poverty, and geography.',
-    limit:'Speed tests reflect submitted observations, not every resident or location. The 2025 sample covers part of the year. Geographic groupings and summary figures are still being reviewed; the comparisons do not establish cause and effect.',
-    href:repo+'Ookla-Data', link:'View the research & code',
+    evidence:'The article includes interactive annual comparisons, exact values and sample sizes, official urban/rural comparisons, and downloadable evidence. The sampled Central Valley download median rose from 34.92 Mbps in 2020 to 267.47 Mbps in 2025.',
+    limit:'All 24 quarters from 2020–2025 are present. Speed tests reflect submitted observations within the cached coverage, not every resident or location. The sample changes over time, and the comparisons do not establish cause and effect.',
+    href:'/research/california-mobile-broadband-divide/', link:'Read the analysis',
+    sourceHref:repo+'Ookla-Data',
     tags:['Python','GeoPandas','Census ACS','Research reporting'],
   },
   {
@@ -62,7 +63,9 @@ function ProjectCard({ p }) {
         {p.id==='chicago'&&<a className="text-link" href="/images/chicago-confusion-matrix.png" target="_blank" rel="noopener noreferrer">View the confusion matrix</a>}
         <h4>Project notes</h4><p>{p.limit}</p>
       </div></details>
-      {p.href&&<a className="text-link project-link" href={p.href} target="_blank" rel="noopener noreferrer">{p.link}</a>}
+      {p.href&&<div className="project-actions"><a className="text-link project-link" href={p.href} target={p.href.startsWith('https:') ? '_blank' : undefined} rel={p.href.startsWith('https:') ? 'noopener noreferrer' : undefined}>{p.link}</a>
+        {p.sourceHref&&<a className="text-link project-link" href={p.sourceHref} target="_blank" rel="noopener noreferrer">View the research & code</a>}
+      </div>}
     </div>
   </article>
 }

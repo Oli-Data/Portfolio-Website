@@ -13,7 +13,11 @@ test('copy revisions preserve project identities, maturity, destinations and rec
   for (const old of before) {
     const next = after.find(p => p.id === old.id)
     assert.ok(next, old.id)
-    for (const key of ['id', 'kind', 'name', 'status', 'accent', 'href', 'tags']) assert.equal(JSON.stringify(next[key]), JSON.stringify(old[key]), `${old.id}.${key}`)
+    for (const key of ['id', 'kind', 'name', 'status', 'accent', 'tags']) assert.equal(JSON.stringify(next[key]), JSON.stringify(old[key]), `${old.id}.${key}`)
+    if (old.id === 'ookla') {
+      assert.equal(next.href, '/research/california-mobile-broadband-divide/')
+      assert.equal(next.sourceHref, old.href)
+    } else assert.equal(next.href, old.href)
     for (const key of ['description', 'built', 'evidence', 'limit']) assert.ok(next[key]?.trim(), `${old.id}.${key}`)
   }
   assert.equal(after.length, before.length)

@@ -1,0 +1,267 @@
+/* One local calendar palette, two luminance treatments. The blue/aqua default
+   is deliberately useful without JavaScript; the initializer sets this month. */
+:root {
+  --month-hue: 219;
+  --month-secondary: 179;
+  --month-saturation: 65%;
+  --canvas-lightness: 95%;
+  --surface-lightness: 99%;
+  --surface-alpha: .34;
+  --reading-alpha: .46;
+  --ink-lightness: 17%;
+  --secondary-lightness: 28%;
+  --muted-lightness: 30%;
+  --accent-lightness: 24%;
+  --button-lightness: 99%;
+  --light-strength: .45;
+  --ribbon-strength: .58;
+  --shadow-strength: .13;
+  color-scheme: light;
+}
+html[data-theme="night"] {
+  --canvas-lightness: 7%; --surface-lightness: 12%; --surface-alpha: .28; --reading-alpha: .38;
+  --ink-lightness: 95%; --secondary-lightness: 81%; --muted-lightness: 72%;
+  --accent-lightness: 82%; --button-lightness: 9%; --light-strength: .12;
+  --ribbon-strength: .2; --shadow-strength: .38; color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    --canvas-lightness: 7%; --surface-lightness: 12%; --surface-alpha: .28; --reading-alpha: .38;
+    --ink-lightness: 95%; --secondary-lightness: 81%; --muted-lightness: 72%;
+    --accent-lightness: 82%; --button-lightness: 9%; --light-strength: .12;
+    --ribbon-strength: .2; --shadow-strength: .38; color-scheme: dark;
+  }
+}
+:root {
+  --bg: hsl(var(--month-hue) 36% var(--canvas-lightness));
+  --bg-nav: hsl(var(--month-hue) 35% var(--surface-lightness) / .48);
+  --text-primary: hsl(var(--month-hue) 30% var(--ink-lightness));
+  --text-secondary: hsl(var(--month-hue) 24% var(--secondary-lightness));
+  --text-muted: hsl(var(--month-hue) 20% var(--muted-lightness));
+  --text-faint: var(--text-muted);
+  --yellow: hsl(var(--month-hue) var(--month-saturation) var(--accent-lightness));
+  --theme-link: var(--yellow);
+  --theme-border: hsl(var(--month-hue) 44% 48% / .3);
+  --border: var(--theme-border); --border-subtle: var(--theme-border);
+  --theme-surface: hsl(var(--month-hue) 42% var(--surface-lightness) / var(--surface-alpha));
+  --reading-surface: hsl(var(--month-hue) 32% var(--surface-lightness) / var(--reading-alpha));
+  --glass-fallback: hsl(var(--month-hue) 32% var(--surface-lightness));
+  --theme-blue: hsl(var(--month-hue) var(--month-saturation) 63% / .15);
+  --theme-green: hsl(var(--month-secondary) 56% 62% / .15);
+  --theme-orange: hsl(var(--month-hue) 60% 71% / .13);
+  --theme-glow: hsl(var(--month-hue) 70% 98% / var(--ribbon-strength));
+  --theme-shadow: hsl(var(--month-hue) 60% 9% / var(--shadow-strength));
+  --theme-selected: hsl(var(--month-hue) 60% 55% / .18);
+  --theme-button: hsl(var(--month-hue) 25% var(--button-lightness));
+  --theme-code: var(--glass-fallback); --theme-code-text: var(--text-primary);
+  --reflection-light: hsl(var(--month-secondary) 80% 95% / .17);
+  --radius-lg: 24px;
+}
+
+/* Match the decorative edges to Safari's solid browser fill. The moving
+   backdrop uses a foreground fade so its shapes animate without a mask. */
+html { background: var(--bg); }
+.ambient {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 8px, #000 80px, #000 calc(100% - 104px), transparent calc(100% - 8px));
+  mask-image: linear-gradient(to bottom, transparent 8px, #000 80px, #000 calc(100% - 104px), transparent calc(100% - 8px));
+}
+
+/* The scene is CSS light and geometry, never a photograph of a fictional lab.
+   Optional ambient motion uses existing shape layers without scroll effects. */
+.scene-backdrop {
+  position: fixed; inset: 0; overflow: hidden; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse at var(--scene-light, 82% 18%), hsl(var(--month-hue) 80% 77% / var(--light-strength)), transparent 57%),
+    radial-gradient(ellipse at var(--scene-glow, 18% 72%), hsl(var(--month-secondary) 64% 72% / var(--light-strength)), transparent 52%),
+    linear-gradient(152deg, transparent 20%, hsl(var(--month-hue) 65% 59% / .08) 58%, transparent 85%), var(--bg);
+}
+.scene-backdrop::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, var(--bg) 8px, transparent 80px, transparent calc(100% - 104px), var(--bg) calc(100% - 8px)),
+    linear-gradient(0deg, var(--bg), transparent 45%);
+}
+.digital-horizon {
+  position: absolute; left: -20%; right: -20%; top: var(--scene-horizon, 43%); height: 75%;
+  background-image: linear-gradient(hsl(var(--month-hue) 60% 65% / .09) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--month-hue) 60% 65% / .09) 1px, transparent 1px);
+  background-size: 90px 70px; transform: perspective(500px) rotateX(58deg);
+  mask-image: linear-gradient(transparent, #000 30%, transparent 90%);
+}
+.light-ribbon {
+  --ribbon-tilt: var(--scene-tilt, -12deg);
+  position: absolute; width: 150%; height: 45%; left: -25%; top: var(--scene-ribbon-top, 34%);
+  border: 1px solid hsl(var(--month-secondary) 75% 96% / var(--ribbon-strength));
+  border-radius: 50%; transform: rotate(var(--ribbon-tilt));
+  background: linear-gradient(173deg, transparent 40%, hsl(var(--month-hue) 80% 86% / .08) 60%, transparent 76%);
+  box-shadow: 0 -10px 35px hsl(var(--month-hue) 75% 85% / .08), inset 0 2px 4px hsl(var(--month-secondary) 80% 98% / var(--ribbon-strength));
+}
+.ribbon-two { --ribbon-tilt: calc(var(--scene-tilt, -12deg) + 4deg); top: calc(var(--scene-ribbon-top, 34%) + 10%); left: -18%; height: 48%; opacity: .66; }
+.ribbon-three { --ribbon-tilt: calc(var(--scene-tilt, -12deg) - 4deg); top: calc(var(--scene-ribbon-top, 34%) + 20%); left: -32%; height: 50%; opacity: .4; }
+.scene-bubble {
+  position: absolute; aspect-ratio: 1; border-radius: 50%;
+  border: 1px solid hsl(var(--month-hue) 75% 96% / var(--ribbon-strength));
+  background: radial-gradient(circle at 28% 20%, #fff9 0, #fff2 8%, transparent 32%), radial-gradient(circle at 76% 80%, hsl(var(--month-secondary) 85% 73% / .27), transparent 56%);
+  box-shadow: inset 5px 7px 20px #ffffff15, inset -8px -12px 30px hsl(var(--month-hue) 75% 52% / .12), 0 20px 50px var(--theme-shadow);
+}
+.bubble-one { width: clamp(120px, 17vw, 260px); right: var(--scene-bubble-right, 4%); top: var(--scene-bubble-top, 13%); opacity: .75; }
+.bubble-two { width: 80px; left: 8%; top: 62%; opacity: .5; }
+.bubble-three { width: 32px; right: 32%; top: 22%; opacity: .7; }
+/* Route compositions change geometry, never the calendar palette. */
+.scene-backdrop[data-scene="about"] { --scene-light: 18% 22%; --scene-glow: 84% 70%; --scene-tilt: 13deg; --scene-ribbon-top: 38%; --scene-bubble-right: 76%; --scene-bubble-top: 16%; }
+.scene-backdrop[data-scene="services"] { --scene-light: 72% 8%; --scene-glow: 10% 58%; --scene-tilt: -22deg; --scene-ribbon-top: 28%; --scene-bubble-right: 10%; --scene-bubble-top: 42%; }
+.scene-backdrop[data-scene="projects"] { --scene-light: 90% 40%; --scene-glow: 22% 12%; --scene-tilt: 6deg; --scene-ribbon-top: 45%; --scene-horizon: 52%; --scene-bubble-right: 6%; --scene-bubble-top: 22%; }
+.scene-backdrop[data-scene="philosophy"] { --scene-light: 48% 10%; --scene-glow: 88% 76%; --scene-tilt: -4deg; --scene-ribbon-top: 52%; --scene-horizon: 58%; --scene-bubble-right: 80%; --scene-bubble-top: 35%; }
+.scene-backdrop[data-scene="contact"] { --scene-light: 12% 38%; --scene-glow: 78% 12%; --scene-tilt: 20deg; --scene-ribbon-top: 40%; --scene-bubble-right: 8%; --scene-bubble-top: 18%; }
+.scene-backdrop[data-scene="luz"] { --scene-light: 70% 18%; --scene-glow: 22% 62%; --scene-tilt: -18deg; --scene-ribbon-top: 24%; --scene-bubble-right: 3%; --scene-bubble-top: 50%; }
+.scene-backdrop[data-scene="selah"] { --scene-light: 18% 14%; --scene-glow: 90% 54%; --scene-tilt: 9deg; --scene-ribbon-top: 32%; --scene-bubble-right: 78%; --scene-bubble-top: 46%; }
+.scene-backdrop[data-scene="lumitudy"] { --scene-light: 88% 12%; --scene-glow: 12% 46%; --scene-tilt: -26deg; --scene-ribbon-top: 48%; --scene-bubble-right: 12%; --scene-bubble-top: 30%; }
+.scene-backdrop[data-scene="research"] { --scene-light: 8% 20%; --scene-glow: 95% 64%; --scene-tilt: -7deg; --scene-ribbon-top: 50%; --scene-bubble-right: -5%; --scene-bubble-top: 26%; }
+.scene-backdrop[data-scene="article"] { --scene-light: 96% 16%; --scene-glow: 5% 72%; --scene-tilt: 12deg; --scene-ribbon-top: 58%; --scene-bubble-right: 88%; --scene-bubble-top: 35%; }
+/* Long-form reading keeps light at the edges, without scroll effects. */
+.scene-backdrop[data-quiet] .digital-horizon,
+.scene-backdrop[data-quiet] .ribbon-three,
+.scene-backdrop[data-quiet] .bubble-two,
+.scene-backdrop[data-quiet] .bubble-three { display: none; }
+.scene-backdrop[data-quiet] .light-ribbon { opacity: .3; }
+.scene-backdrop[data-quiet] .scene-bubble { opacity: .25; }
+.reading-page { --theme-surface: var(--reading-surface); }
+.reading-page > .article-width { background: var(--reading-surface); border-inline: 1px solid var(--theme-border); }
+.reading-page > .journal-intro { background: linear-gradient(90deg, transparent, var(--reading-surface) 15% 85%, transparent); }
+.reading-page .journal-row, .reading-page .draft-notice { background: var(--reading-surface); padding-inline: 20px; }
+.ambient .blob { opacity: .22; }
+.blob-yellow, .blob-blue { background: hsl(var(--month-hue) 80% 65% / .36); }
+.blob-orange, .blob-red { background: hsl(var(--month-secondary) 75% 65% / .3); }
+
+/* Small, legible glass controls retain the established keyboard behavior. */
+.theme-options { width: 292px; border-radius: 24px; padding: 10px; }
+/* On phones the orb shares a row with the hamburger. Anchor its wider tray to
+   the header instead of the orb, so it cannot extend past the viewport edge. */
+@media (max-width: 900px) {
+  .theme-control { position: static; }
+  .theme-options {
+    right: 0;
+    top: calc(100% + 8px);
+    width: min(292px, 100%);
+    max-width: 100%;
+    max-height: calc(100vh - 110px);
+    max-height: calc(100dvh - 110px - env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform-origin: calc(100% - 84px) -8px;
+  }
+}
+.theme-season { grid-column: 1 / -1; display: flex; gap: 10px; align-items: center; padding: 9px 7px 13px; border-bottom: 1px solid var(--theme-border); margin-bottom: 3px; }
+.theme-season strong { display: block; font-size: 12px; line-height: 1.5; font-weight: 600; color: var(--text-primary); }
+.theme-season span:not(.season-swatch) { display: block; font-size: 10px; line-height: 1.5; color: var(--text-muted); margin-top: 2px; }
+.season-swatch { width: 28px; height: 28px; flex: 0 0 28px; border-radius: 50%; border: 1px solid var(--theme-border); background: radial-gradient(circle at 30% 20%, #fffc, transparent 50%), linear-gradient(135deg, hsl(var(--month-hue) var(--month-saturation) 65%), hsl(var(--month-secondary) 65% 75%)); box-shadow: inset 0 1px 3px #fff9; }
+.glass-card { border-radius: 24px; }
+.journal-button, .btn-glass { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
+.glass-card, .featured-post, .home-note-grid > a { box-shadow: inset 0 1px 0 var(--theme-glow), inset 0 -1px 0 #ffffff12, 0 18px 50px var(--theme-shadow); }
+
+/* Real application pixels, framed as a window rather than simulated controls. */
+.project-window { position: relative; display: block; width: 100%; padding: 10px; border: 1px solid var(--theme-border); border-radius: 24px; color: var(--text-primary); text-decoration: none; background: linear-gradient(130deg, var(--theme-glow), transparent 45%), var(--theme-surface); box-shadow: inset 0 1px 0 var(--theme-glow), 0 28px 70px var(--theme-shadow); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.project-window:hover { border-color: var(--yellow); }
+.project-window-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 38px; padding: 0 8px 9px; font-size: 11px; line-height: 1.5; }
+.window-lights { display: flex; gap: 5px; align-items: center; }
+.window-lights i { display: block; width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--theme-border); background: var(--theme-glow); }
+.window-lights i:first-child { background: var(--yellow); opacity: .65; }
+.project-window-title { margin-right: auto; font-weight: 600; }
+.window-stage { border: 1px solid var(--theme-border); border-radius: 14px; overflow: hidden; background: #0b323a; }
+.window-stage img { display: block; width: 100%; height: auto; }
+.project-window-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 8px 5px; font-size: 12px; color: var(--theme-link); line-height: 1.6; }
+.window-caption { margin: 18px auto 0; text-align: center; color: var(--text-muted); font-size: 12px; line-height: 1.7; }
+.window-orbit { position: relative; min-width: 0; padding: 28px 0; }
+.window-orbit::before { content: ''; position: absolute; left: -12%; right: -10%; height: 50%; bottom: -3%; border-radius: 50%; border: 1px solid var(--theme-border); box-shadow: inset 0 2px 0 var(--theme-glow), 0 15px 35px var(--theme-shadow); transform: rotate(-8deg); background: linear-gradient(155deg, var(--theme-glow), transparent 70%); }
+.window-orbit > * { position: relative; }
+@media (max-width: 960px) { .window-orbit { width: min(100%, 580px); margin: 0 auto; } }
+@media (max-width: 640px) {
+  .scene-bubble.bubble-one { right: -35px; top: 12%; }
+  .digital-horizon, .ribbon-three, .bubble-three { display: none; }
+  .light-ribbon { box-shadow: none; }
+
+
+  .window-orbit { padding: 12px 0 22px; }
+  .window-orbit::before { left: 0; right: 0; }
+  .project-window { padding: 7px; border-radius: 19px; }
+  .project-window-bar { font-size: 10px; gap: 8px; }
+  .project-window-foot { font-size: 11px; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .project-window { background: var(--glass-fallback); } }
+@media (prefers-reduced-motion: reduce) {
+  .scene-backdrop { position: absolute; bottom: auto; height: 100vh; height: 100svh; }
+  .digital-horizon { display: none; }
+  .theme-orb, .theme-options, .theme-choice, .glass-card, .project-window { transition: none; }
+}
+@media (forced-colors: active) {
+  .scene-backdrop, .ambient, .window-orbit::before { display: none; }
+  .glass-card, .project-window, .theme-options, .theme-orb { border: 1px solid CanvasText; background: Canvas; box-shadow: none; }
+}
+
+
+/* Slow, compositor-friendly movement on a small number of existing shapes.
+   Paused by default: hydration must apply saved/device/visibility preferences. */
+.scene-backdrop:not([data-quiet]) .bubble-one { animation: scene-drift 20s ease-in-out infinite alternate; animation-play-state: paused; }
+.scene-backdrop:not([data-quiet]) .bubble-two { animation: scene-drift-small 26s ease-in-out infinite alternate; animation-play-state: paused; }
+.scene-backdrop:not([data-quiet]) .ribbon-one { animation: scene-sway 30s ease-in-out infinite alternate; animation-play-state: paused; }
+.scene-backdrop:not([data-quiet]) .ribbon-two { animation: scene-sway-reverse 34s ease-in-out infinite alternate; animation-play-state: paused; }
+.scene-backdrop:not([data-quiet]) .ribbon-three { animation: scene-sway-high 38s ease-in-out infinite alternate; animation-play-state: paused; }
+html[data-scene-motion="running"] .scene-backdrop:not([data-quiet]) :is(.bubble-one, .bubble-two, .light-ribbon) { animation-play-state: running; }
+@keyframes scene-drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-24px, -40px); }
+}
+@keyframes scene-drift-small {
+  from { transform: translate(0, 0); }
+  to { transform: translate(18px, -28px); }
+}
+@keyframes scene-sway {
+  from { transform: translate(0, 0) rotate(var(--ribbon-tilt)); }
+  to { transform: translate(26px, -10px) rotate(calc(var(--ribbon-tilt) + 1.5deg)); }
+}
+@keyframes scene-sway-reverse {
+  from { transform: translate(0, 0) rotate(var(--ribbon-tilt)); }
+  to { transform: translate(-22px, 12px) rotate(calc(var(--ribbon-tilt) - 1.2deg)); }
+}
+@keyframes scene-sway-high {
+  from { transform: translate(0, 0) rotate(var(--ribbon-tilt)); }
+  to { transform: translate(18px, -14px) rotate(calc(var(--ribbon-tilt) + 1deg)); }
+}
+@media (max-width: 640px), (pointer: coarse) {
+  .scene-backdrop:not([data-quiet]) .bubble-two { animation: none; }
+  .scene-backdrop:not([data-quiet]) .bubble-one { animation-name: scene-drift-phone; animation-duration: 22s; }
+  .scene-backdrop:not([data-quiet]) .ribbon-one { animation-name: scene-sway-phone; animation-duration: 36s; }
+  .scene-backdrop:not([data-quiet]) .ribbon-two { animation-name: scene-sway-phone-reverse; animation-duration: 40s; }
+  .scene-backdrop:not([data-quiet]) .ribbon-three { animation-name: scene-sway-phone-high; animation-duration: 44s; }
+}
+@keyframes scene-drift-phone {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-10px, -20px); }
+}
+@keyframes scene-sway-phone {
+  from { transform: translate(0, 0) rotate(var(--ribbon-tilt)); }
+  to { transform: translate(10px, -4px) rotate(calc(var(--ribbon-tilt) + .5deg)); }
+}
+@keyframes scene-sway-phone-reverse {
+  from { transform: translate(0, 0) rotate(var(--ribbon-tilt)); }
+  to { transform: translate(-8px, 5px) rotate(calc(var(--ribbon-tilt) - .4deg)); }
+}
+@keyframes scene-sway-phone-high {
+  from { transform: translate(0, 0) rotate(var(--ribbon-tilt)); }
+  to { transform: translate(6px, -5px) rotate(calc(var(--ribbon-tilt) + .3deg)); }
+}
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .scene-backdrop:not([data-quiet]) :is(.bubble-one, .bubble-two, .light-ribbon) { animation: none; }
+}
+.theme-motion { grid-column: 1 / -1; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--theme-border); }
+.motion-toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 44px; padding: 10px; border: 1px solid var(--theme-border); border-radius: 12px; color: var(--text-primary); background: var(--reading-surface); font: 500 12px/1.5 var(--font-body); text-align: left; cursor: pointer; }
+.motion-state { display: inline-flex; align-items: center; gap: 6px; color: var(--theme-link); white-space: nowrap; }
+.theme-options .motion-state svg { width: 14px; height: 14px; flex: 0 0 14px; }
+.motion-toggle:hover:not(:disabled) { background: var(--theme-blue); }
+.motion-toggle:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+.motion-toggle:disabled { cursor: default; }
+.theme-motion p { margin: 8px 4px 0; color: var(--text-muted); font-size: 11px; line-height: 1.6; }
+@media (forced-colors: active) {
+  .motion-toggle { background: Canvas; color: CanvasText; border-color: CanvasText; }
+  .motion-state { color: CanvasText; }
+  .motion-toggle:focus-visible { outline-color: Highlight; }
+}

@@ -1,0 +1,150 @@
+/* Dimensional glass belongs to real destinations, not static content panels.
+   Inset highlights and a lower edge create depth without another blur layer. */
+a[href]:is(.text-link, .journal-button, .btn-glass, .btn-yellow, .back-link),
+.section-rule > a[href] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 11px 16px;
+  border: 1px solid var(--theme-border);
+  border-radius: 14px;
+  color: var(--theme-link);
+  background: linear-gradient(160deg, var(--theme-glow), transparent 65%), var(--reading-surface);
+  box-shadow: inset 0 1px 1px var(--theme-glow), inset 1px 0 0 #ffffff20, inset 0 -2px 0 var(--theme-border), 0 3px 0 var(--theme-border), 0 9px 20px var(--theme-shadow);
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  vertical-align: middle;
+  filter: none;
+  opacity: 1;
+  cursor: pointer;
+}
+
+a[href]:is(.journal-button, .btn-yellow) {
+  color: var(--theme-button);
+  background: var(--yellow);
+}
+a[href]:is(.text-link, .journal-button, .btn-glass, .btn-yellow, .back-link) > svg { flex-shrink: 0; }
+/* Preserve bottom-aligned card actions with a gap outside the button face. */
+.about-grid > .glass-card > a.text-link[href] { padding: 11px 16px; }
+.about-grid > .glass-card:has(> a.text-link[href]) > p:last-of-type { padding-bottom: 20px; }
+
+a[href]:is(.glass-card, .featured-post, .project-window),
+.home-note-grid > a[href] {
+  border-color: var(--theme-border);
+  box-shadow: inset 0 2px 1px var(--theme-glow), inset 1px 0 0 #ffffff22, inset 0 -2px 0 var(--theme-border), 0 4px 0 var(--theme-border), 0 16px 38px var(--theme-shadow);
+  transform-origin: center;
+  cursor: pointer;
+}
+/* The existing highlight remains beneath text and never intercepts a click. */
+a.glass-card[href]::before {
+  background: linear-gradient(155deg, var(--theme-glow), transparent 34%, transparent 75%, var(--theme-blue));
+  pointer-events: none;
+}
+
+/* Focus is equally visible without requiring a mouse or physical movement. */
+a[href]:is(.text-link, .journal-button, .btn-glass, .btn-yellow, .back-link, .glass-card, .featured-post, .project-window):focus-visible,
+.section-rule > a[href]:focus-visible,
+.home-note-grid > a[href]:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 5px;
+  border-color: var(--yellow);
+  box-shadow: inset 0 2px 1px var(--theme-glow), inset 0 -2px 0 var(--theme-border), 0 4px 0 var(--theme-border), 0 14px 30px var(--theme-shadow);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a[href]:is(.text-link, .journal-button, .btn-glass, .btn-yellow, .back-link, .glass-card, .featured-post, .project-window):hover,
+  .section-rule > a[href]:hover,
+  .home-note-grid > a[href]:hover {
+    border-color: var(--yellow);
+    box-shadow: inset 0 2px 1px var(--theme-glow), inset 1px 0 0 #ffffff30, inset 0 -2px 0 var(--theme-border), 0 5px 0 var(--theme-border), 0 20px 36px var(--theme-shadow);
+    opacity: 1;
+    filter: none;
+  }
+  a.journal-button[href]:hover { background: var(--yellow); }
+}
+
+@media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  a[href]:is(.text-link, .journal-button, .btn-glass, .btn-yellow, .back-link, .glass-card, .featured-post, .project-window),
+  .section-rule > a[href],
+  .home-note-grid > a[href] {
+    transition: transform .18s ease-out, border-color .15s ease;
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  a[href]:is(.text-link, .journal-button, .btn-glass, .btn-yellow, .back-link):hover,
+  .section-rule > a[href]:hover { transform: translateY(-2px) perspective(700px) rotateX(3deg); }
+  a[href]:is(.glass-card, .featured-post, .project-window):hover,
+  .home-note-grid > a[href]:hover { transform: translateY(-3px) perspective(1200px) rotateX(1deg) rotateY(-.6deg); }
+}
+
+/* A short pressed state works on touch as well as mouse, without sticky hover. */
+a[href]:is(.text-link, .journal-button, .btn-glass, .btn-yellow, .back-link, .glass-card, .featured-post, .project-window):active,
+.section-rule > a[href]:active,
+.home-note-grid > a[href]:active {
+  border-color: var(--yellow);
+  box-shadow: inset 0 2px 4px var(--theme-shadow), inset 0 -1px 0 var(--theme-glow), 0 1px 0 var(--theme-border), 0 4px 10px var(--theme-shadow);
+}
+@media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  a[href]:is(.text-link, .journal-button, .btn-glass, .btn-yellow, .back-link, .glass-card, .featured-post, .project-window):active,
+  .section-rule > a[href]:active,
+  .home-note-grid > a[href]:active { transform: translateY(1px); }
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  a[href]:is(.text-link, .journal-button, .btn-glass, .btn-yellow, .back-link, .glass-card, .featured-post, .project-window),
+  .section-rule > a[href],
+  .home-note-grid > a[href] { transition: none; transform: none; }
+}
+
+/* Secondary destinations read as links; primary actions keep the glass depth. */
+a[href].text-link:not(.journal-button),
+a[href].back-link,
+.section-rule > a[href] {
+  padding: 10px 0;
+  border-color: transparent;
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: none;
+  text-decoration: underline;
+  text-decoration-color: var(--theme-border);
+  text-underline-offset: 5px;
+}
+.about-grid > .glass-card > a.text-link[href]:not(.journal-button) { padding: 10px 0; }
+a[href].text-link:not(.journal-button):is(:hover, :active, :focus-visible),
+a[href].back-link:is(:hover, :active, :focus-visible),
+.section-rule > a[href]:is(:hover, :active, :focus-visible) {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+  text-decoration-color: var(--theme-link);
+}
+
+@media (forced-colors: active) {
+  a[href]:is(.text-link, .journal-button, .btn-glass, .btn-yellow, .back-link, .glass-card, .featured-post, .project-window),
+  .section-rule > a[href],
+  .home-note-grid > a[href] { color: LinkText; border: 1px solid LinkText; background: Canvas; box-shadow: none; }
+  a[href]:is(.text-link, .journal-button, .btn-glass, .btn-yellow, .back-link, .glass-card, .featured-post, .project-window):is(:hover, :active, :focus-visible),
+  .section-rule > a[href]:is(:hover, :active, :focus-visible),
+  .home-note-grid > a[href]:is(:hover, :active, :focus-visible) { border-color: Highlight; outline-color: Highlight; background: Canvas; box-shadow: none; }
+  a.glass-card[href]::before { display: none; }
+  a[href].text-link:not(.journal-button),
+  a[href].back-link,
+  .section-rule > a[href] {
+    color: LinkText;
+    background: Canvas;
+    border-color: LinkText;
+    text-decoration-color: LinkText;
+  }
+  a[href].text-link:not(.journal-button):is(:hover, :active, :focus-visible),
+  a[href].back-link:is(:hover, :active, :focus-visible),
+  .section-rule > a[href]:is(:hover, :active, :focus-visible) { border-color: Highlight; text-decoration-color: Highlight; }
+}

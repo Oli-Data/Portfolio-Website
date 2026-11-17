@@ -1,0 +1,15 @@
+{
+  "repository": "Oli-Data/CO3-Labs-Landing",
+  "sourceCommit": "13bb86268b7ade8679fd44d8c566b313da8ca2a6",
+  "postSha256": "cb32e5138aa83fe40f8647a10af877003662f977c8bfc63654e39354f3b07a18",
+  "files": {
+    "public/data/ookla-annual-summary.csv": "55378d48b5d7862b4498ef77638d2bbb7282c191a89f30d2e23a470413879680",
+    "public/data/ookla-article-evidence.json": "7e34b0d849131b85cf8e8fbd547938326caa0dc7693a346768873aba313cbde3",
+    "public/notebooks/ookla-article-companion.ipynb": "ec7b639c3365838dc40211e20053b745929ac0c991437ecf5453ecb428741464",
+    "src/research/ookla-data.json": "7e34b0d849131b85cf8e8fbd547938326caa0dc7693a346768873aba313cbde3",
+    "src/research/styles/globals.css": "0b5e562530bf15ffd64f96b401bad7b2ade8e42de347ed3d14b58b0b980351ac",
+    "src/research/styles/appearance.css": "0c6a911a3510a3993181f9318fe622fad35cc30a33deb018a43b0572eb54e690",
+    "src/research/styles/layout.css": "15b5987c313b6ca8a7c5e25b5145d7ab7fed7a9fa4725a23e148d3fa1069fb0d",
+    "src/research/styles/interaction-glass.css": "c2adaa6cd285f553cd96fec19b152010a28545ac65b6e9329238358a5f2e3163"
+  }
+}
